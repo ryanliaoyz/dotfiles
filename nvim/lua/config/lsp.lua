@@ -1,6 +1,7 @@
 -- Enable LSP servers
 vim.lsp.enable("ts_ls")
 vim.lsp.enable("clangd")
+vim.lsp.enable("cssls")
 
 -- Buffer-local LSP keymaps on attach
 vim.api.nvim_create_autocmd("LspAttach", {
