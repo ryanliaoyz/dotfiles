@@ -6,3 +6,5 @@ require("config.plugins")
 
 -- LSP setup (servers + keymaps + diagnostics + format)
 require("config.lsp")
+
+require("config.keymaps")
