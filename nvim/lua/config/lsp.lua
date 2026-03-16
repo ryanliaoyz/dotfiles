@@ -2,7 +2,14 @@
 vim.lsp.enable("ts_ls")
 vim.lsp.enable("clangd")
 vim.lsp.enable("cssls")
+vim.lsp.enable("rust_analyzer")
 
+-- use c++20
+vim.lsp.config("clangd", {
+    init_options = {
+        fallbackFlags = { "-std=c++20" },
+    },
+})
 -- Buffer-local LSP keymaps on attach
 vim.api.nvim_create_autocmd("LspAttach", {
   callback = function(args)
