@@ -26,7 +26,11 @@ require("lazy").setup({
           "tsx",
           "json",
           "c",
-          "haskell"
+          "haskell",
+          "python",
+          "markdown",
+          "markdown_inline"
+
         },
         highlight = { enable = true },
       })

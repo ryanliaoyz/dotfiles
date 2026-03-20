@@ -3,6 +3,7 @@ vim.lsp.enable("ts_ls")
 vim.lsp.enable("clangd")
 vim.lsp.enable("cssls")
 vim.lsp.enable("rust_analyzer")
+vim.lsp.enable("pyright")
 
 -- use c++20
 vim.lsp.config("clangd", {
@@ -10,6 +11,17 @@ vim.lsp.config("clangd", {
         fallbackFlags = { "-std=c++20" },
     },
 })
+
+-- auto-detect py venv
+vim.lsp.config("pyright", {
+    settings = {
+        python = {
+            venvPath = ".",
+            venv = ".venv",
+        },
+    },
+})
+
 -- Buffer-local LSP keymaps on attach
 vim.api.nvim_create_autocmd("LspAttach", {
   callback = function(args)
