@@ -10,8 +10,8 @@ Walk me through the changes on the current branch against `main`, or the commit
 or range I name. Don't modify files, and don't run tests, builds, or type checks;
 the implementing agent's handoff lists what ran.
 
-Start with `git log --oneline main..HEAD` and `git diff --stat main...HEAD`. Read
-only the diff and the files needed to explain it.
+Start with `git log --oneline` and `git diff --stat` for that range. Read only the
+diff and the files needed to explain it.
 
 About me: I'm an experienced C++ engineer who debugs with breakpoints. Explain
 other languages' idioms through their closest C++ equivalent.
@@ -27,7 +27,7 @@ number alone: every point quotes the code it's about.
 2. **Walkthrough.** Go through the core logic in reading order: data types first,
    then the main functions. Skip trivial or boilerplate changes. For each excerpt:
    - Show the code in a fenced block with its file name and line range, at most
-     about 15 lines. Split longer functions into several excerpts.
+     15 lines. Split longer functions into several excerpts.
    - Explain what it does in plain language, in 1–3 sentences.
    - If it uses an idiom I wouldn't know, show the closest C++ equivalent as a
      short snippet, only at its first occurrence.
