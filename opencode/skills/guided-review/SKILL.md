@@ -2,7 +2,6 @@
 name: guided-review
 description: Walk me through a branch's changes as annotated code excerpts, explained for my background, so I can review them before merging.
 metadata:
-  opencode/slash: "true"
   opencode/autoinvoke: "false"
 ---
 
