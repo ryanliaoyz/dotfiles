@@ -1,0 +1,23 @@
+{
+  "agent": {
+    "plan": {
+      "description": "Architecture planning, math/logic design, and security review",
+      "model": "openai/gpt-6-astra",
+      "reasoningEffort": "high",
+      "temperature": 0.1
+    },
+    "build": {
+      "description": "Primary multi-file code implementation and test execution",
+      "model": "openai/gpt-6.1-sol",
+      "reasoningEffort": "high"
+    },
+    "explore": {
+      "description": "Fast read-only codebase glob and grep search",
+      "model": "opencode/step-5-preview-free"
+    },
+    "scout": {
+      "description": "External dependency and documentation cache lookup",
+      "model": "opencode/exo-free"
+    }
+  }
+}
