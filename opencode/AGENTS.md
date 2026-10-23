@@ -67,7 +67,7 @@ async ordering; security; or the project's architecture rules. Give it only the
 base branch, never your task or reasoning. Fix its findings or list the unfixed
 ones in the handoff, and run it again only if a fix changes code it didn't cover.
 Run it once per branch, when the milestone’s work is done, not after each commit.
-To re-review after fixes, continue the same reviewer session (pass its `sessionID`) instead of starting a new one.”
+To re-review after fixes, continue the same reviewer session (pass its `sessionID`) instead of starting a new one.
 
 ## Handoff
 

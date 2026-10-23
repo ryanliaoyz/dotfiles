@@ -18,9 +18,9 @@ told what the implementer was asked to do, and you shouldn't guess.
 1. Read the project's `AGENTS.md`. Its architecture rules define what correct
    means here; the rest of it, and the global agent rules, are for the agent that
    wrote the code, so ignore them.
-2. Get the changes with `git log --oneline <base>..HEAD` 
-   Run git commands without pipes, `-C` or `--no-pager`;
-   start with `git diff <base>...HEAD`, then diff file by file.
+2. Get the changes with `git log --oneline <base>..HEAD` and `git diff --stat <base>...HEAD`,
+   then `git diff <base>...HEAD -- <file>` one file at a time, and read the surrounding code
+   as needed. Run git commands without pipes, `-C` or `--no-pager`.
 3. Report correctness problems only: bugs, data loss, broken architecture rules,
    race conditions, and security holes. Skip style, naming, and refactoring ideas.
 
