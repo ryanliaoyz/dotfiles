@@ -1,7 +1,7 @@
 ---
 description: Review the current branch before merge, using the reviewer agent
 agent: reviewer
-subtask: true
+subagent: true
 ---
 
 Review the changes on the current branch against `main`, or against this base

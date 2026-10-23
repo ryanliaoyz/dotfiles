@@ -1,23 +1,16 @@
 {
-  "agent": {
+  "$schema": "https://opencode.ai/config.json",
+  "agents": {
     "plan": {
       "description": "Architecture planning, math/logic design, and security review",
-      "model": "openai/gpt-6-astra",
-      "reasoningEffort": "high",
-      "temperature": 0.1
+      "model": "openai/gpt-6-astra#high"
     },
     "build": {
       "description": "Primary multi-file code implementation and test execution",
-      "model": "openai/gpt-6.1-sol",
-      "reasoningEffort": "high"
+      "model": "openai/gpt-6.1-sol"
     },
-    "explore": {
-      "description": "Fast read-only codebase glob and grep search",
-      "model": "opencode/step-5-preview-free"
-    },
-    "scout": {
-      "description": "External dependency and documentation cache lookup",
-      "model": "opencode/exo-free"
-    }
-  }
+    "explore": { "model": "opencode/deepseek-v4.1-flash-free" }
+  },
+  "compaction": { "buffer": 800000 },
+  "tool_output": { "max_lines": 300, "max_bytes": 16384 }
 }

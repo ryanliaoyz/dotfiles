@@ -66,6 +66,8 @@ if the branch touches persisting, deleting, or migrating data; concurrency or
 async ordering; security; or the project's architecture rules. Give it only the
 base branch, never your task or reasoning. Fix its findings or list the unfixed
 ones in the handoff, and run it again only if a fix changes code it didn't cover.
+Run it once per branch, when the milestone’s work is done, not after each commit.
+To re-review after fixes, continue the same reviewer session (pass its `sessionID`) instead of starting a new one.”
 
 ## Handoff
 
@@ -99,3 +101,16 @@ when I ask for one:
   project file says.
 - Check that every command and path a doc mentions exists. Docs never mention
   `AGENTS.md`; they explain the design themselves.
+
+## Context budget
+
+Every tool result stays in the conversation until compaction, so fetch only what the task needs.
+
+- For questions that span several files, use the `explore` subagent and ask for file paths,
+  line numbers and a short summary.
+- Find code with the `grep` tool, then `read` only the range you need with `offset` and `limit`.
+  Read whole files only when they're short.
+- Make independent reads and searches in one step, or use `execute` (Code Mode) when you only
+  need a digest of their results.
+- When you only need pass/fail or the failures from a build or test, filter the output.
+  Summarize JSON with `jq` or Code Mode instead of printing it.
