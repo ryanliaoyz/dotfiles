@@ -13,8 +13,9 @@ planned work in `TODO.md`. If a project has no `AGENTS.md`, tell me, and suggest
   Otherwise pick the conventional option and say which you picked.
 - Report what you checked and what you couldn't. Never claim a command, test or
   check that didn't run, and never describe planned work as done.
-- Follow the project's existing conventions. Keep dependencies and abstractions
-  proportional to the task.
+- Follow the project's existing conventions and workflow. Don't add a tool or
+  process it doesn't already use unless I ask, and keep dependencies and
+  abstractions proportional to the task.
 - Never commit `AGENTS.md`, secrets, credentials, model weights, or generated
   build output.
 
@@ -50,11 +51,35 @@ planned work in `TODO.md`. If a project has no `AGENTS.md`, tell me, and suggest
 6. Never amend or rebase existing commits, delete branches, or skip hooks. Push or
    open pull requests only when I ask.
 
+## Code
+
+- Keep each change to what the task needs, and ask before widening it.
+- Don't add code for race conditions or security edge cases that are only
+  guesses. If you think one is real, first tell me how it would fail, how likely
+  that is, and how much code the fix needs, then wait until I agree. This
+  doesn't apply to code that actually runs concurrently or handles money or
+  orders: handle races and failure cases there as part of the work.
+- Validate data from outside the program (user input, files, network) once,
+  where it enters, and pass it inward as typed values. Inside, don't add
+  defensive checks or error paths for those values. Cheap asserts on internal
+  invariants are still fine; they catch bugs, not bad input.
+- Don't swallow errors: no catch-all handler that logs and carries on, and no
+  silent fallback values. Let an error propagate unless there's a specific way
+  to recover from it.
+- Keep each function's happy path easy to follow. Extract a helper only when
+  it's reused, hides real complexity, names a clear concept, or would otherwise
+  bury that path.
+- Write comments only for constraints that aren't obvious and behaviour that
+  would surprise a reader. Don't comment what the code already says.
+- Don't hand-edit generated files; change their source and regenerate them.
+
 ## Verification
 
 - Use the project's real scripts; don't invent lint, build, or test commands.
-- Write deterministic tests for the risks the project lists, and mock external
-  services (models, network) in unit tests.
+- Write deterministic tests for the risks the project lists.
+- Test the real implementation. Don't copy its logic into a test to work out the
+  expected result. In unit tests, mock external services (models, network), but
+  not the project's own code.
 - A bug fix includes a test that would have caught the bug.
 - When a change depends on runtime behaviour that tests can't observe, verify it
   the way the project file describes, and say how.
