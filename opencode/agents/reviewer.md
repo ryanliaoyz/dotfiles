@@ -4,6 +4,8 @@ mode: subagent
 permission:
   edit: deny
   webfetch: deny
+  external_directory:
+    "/workspace/**": allow
   shell:
     "*": deny
     "git diff*": allow
