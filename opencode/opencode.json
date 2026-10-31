@@ -9,8 +9,18 @@
       "description": "Primary multi-file code implementation and test execution",
       "model": "openai/gpt-6.1-sol"
     },
-    "explore": { "model": "opencode/deepseek-v4.1-flash-free" }
+    "explore": {
+      "model": "opencode/deepseek-v4.1-flash-free"
+    }
   },
-  "compaction": { "buffer": 800000 },
-  "tool_output": { "max_lines": 300, "max_bytes": 16384 }
+  "compaction": {
+    "buffer": 800000
+  },
+  "tool_output": {
+    "max_lines": 300,
+    "max_bytes": 16384
+  },
+  "permission": {
+    "external_directory": "allow"
+  }
 }

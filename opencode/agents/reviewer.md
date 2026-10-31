@@ -5,7 +5,7 @@ permission:
   edit: deny
   webfetch: deny
   external_directory:
-    "/workspace/**": allow
+    "*": allow
   shell:
     "*": deny
     "git diff*": allow
