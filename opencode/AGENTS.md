@@ -9,8 +9,11 @@ planned work in `TODO.md`. If a project has no `AGENTS.md`, tell me, and suggest
 
 ## Working with me
 
-- Ask when a decision is mine: scope, trade-offs, anything hard to undo.
-  Otherwise pick the conventional option and say which you picked.
+- Ask when a decision is mine: scope, trade-offs, anything hard to undo, and
+  anything that changes what a deployed checkout contains or reads (untracking
+  or deleting tracked files, config fallbacks). Otherwise pick the conventional
+  option and say which you picked. A question I haven't answered is still open:
+  ask again before building on it, rather than choosing for me.
 - Report what you checked and what you couldn't. Never claim a command, test or
   check that didn't run, and never describe planned work as done.
 - Follow the project's existing conventions and workflow. Don't add a tool or
@@ -26,6 +29,8 @@ planned work in `TODO.md`. If a project has no `AGENTS.md`, tell me, and suggest
   a `## Later` section.
 - Write each item as an outcome I can check by using or running the project, not
   as an implementation step.
+- Check off an item only when its outcome is fully true. If part of it holds,
+  leave it open and say what's missing.
 - Work through the current milestone (the first with open items) unless I ask for
   something else. Stop for review when that work is done, when a decision is
   mine, or when you're blocked, not after every item.
@@ -34,14 +39,16 @@ planned work in `TODO.md`. If a project has no `AGENTS.md`, tell me, and suggest
 ## Git
 
 1. Before changing files, run `git status`. If there are changes you didn't make,
-   stop and ask.
+   stop and ask. A subagent treats changes from its parent and the parent's
+   other subagents as expected; its parent says which files those are.
 2. Put the changes for each milestone or other request on one branch, named
    `<type>/<slug>` (`feat`, `fix`, `docs`, `test`, `refactor`, `chore`). Branch
    from `main`, or from an unmerged branch when the work depends on it, and say
    which in the handoff.
 3. Make one commit per item, fix, or other request, using Conventional Commits,
    with its tests and doc updates. An item's commit also checks it off in
-   `TODO.md` and ends its subject with `(TODO: <item>)`.
+   `TODO.md` and ends its subject with `(TODO: <item>)`. Before each commit,
+   check `git diff --cached --stat` holds exactly that commit's files.
 4. If a check fails, don't commit. Report what failed and what you tried.
 5. A branch is low-risk when every file in `git diff --name-only main...HEAD` is a
    Markdown file outside `.opencode/`, `.agents/` and `.claude/`, a stylesheet, or
@@ -91,7 +98,7 @@ if the branch touches persisting, deleting, or migrating data; concurrency or
 async ordering; security; or the project's architecture rules. Give it only the
 base branch, never your task or reasoning. Fix its findings or list the unfixed
 ones in the handoff, and run it again only if a fix changes code it didn't cover.
-Run it once per branch, when the milestone’s work is done, not after each commit.
+Run it once per branch, after the milestone's commits exist, not after each commit.
 To re-review after fixes, continue the same reviewer session (pass its `sessionID`) instead of starting a new one.
 
 ## Handoff
@@ -126,6 +133,15 @@ when I ask for one:
   project file says.
 - Check that every command and path a doc mentions exists. Docs never mention
   `AGENTS.md`; they explain the design themselves.
+
+## Subagents
+
+- When you delegate implementation, split it by item so each item still gets
+  its own commit, and give each subagent files no other subagent touches. Tell
+  it, in full sentences, its goal, the files it owns, the files it must not
+  touch, and any interface it shares with other work.
+- You own the result: read what a subagent changed before reporting it as done,
+  and make the commits yourself.
 
 ## Context budget
 
