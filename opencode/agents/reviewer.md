@@ -23,7 +23,11 @@ told what the implementer was asked to do, and you shouldn't guess.
 2. Get the changes with `git log --oneline <base>..HEAD` and `git diff --stat <base>...HEAD`,
    then `git diff <base>...HEAD -- <file>` one file at a time, and read the surrounding code
    as needed. Run git commands without pipes, `-C` or `--no-pager`.
-3. Report correctness problems only: bugs, data loss, broken architecture rules,
+3. If the changes add or move threads, channels or locks, check them across the
+   whole codebase, not just the diff. For each lock, find every other holder and
+   check what happens when both run at once. For each stale-result guard, check
+   what it drops and whether that work is retried or reported.
+4. Report correctness problems only: bugs, data loss, broken architecture rules,
    race conditions, and security holes. Skip style, naming, and refactoring ideas.
 
 For each problem, give the file and line, the defect in one sentence, and a

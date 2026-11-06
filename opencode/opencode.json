@@ -3,7 +3,7 @@
   "agents": {
     "plan": {
       "description": "Architecture planning, math/logic design, and security review",
-      "model": "openai/gpt-6-astra#high"
+      "model": "openai/gpt-6-astra"
     },
     "build": {
       "description": "Primary multi-file code implementation and test execution",

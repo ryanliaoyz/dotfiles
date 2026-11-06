@@ -21,6 +21,10 @@ planned work in `TODO.md`. If a project has no `AGENTS.md`, tell me, and suggest
   abstractions proportional to the task.
 - Never commit `AGENTS.md`, secrets, credentials, model weights, or generated
   build output.
+- When I ask to discuss or plan, don't write code until I approve. In plan mode,
+  do all the read-only work first: explore, draft the design, and ask every question
+  that needs my approval, including any design the Code rules require me to approve. 
+  Then tell me building needs mode, once, with nothing left to settle.
 
 ## Planning
 
@@ -45,10 +49,11 @@ planned work in `TODO.md`. If a project has no `AGENTS.md`, tell me, and suggest
    `<type>/<slug>` (`feat`, `fix`, `docs`, `test`, `refactor`, `chore`). Branch
    from `main`, or from an unmerged branch when the work depends on it, and say
    which in the handoff.
-3. Make one commit per item, fix, or other request, using Conventional Commits,
-   with its tests and doc updates. An item's commit also checks it off in
-   `TODO.md` and ends its subject with `(TODO: <item>)`. Before each commit,
-   check `git diff --cached --stat` holds exactly that commit's files.
+3. Make one commit per item, fix, or other request. A request with several parts
+   is several items: one commit each. Use Conventional Commits, with its tests
+   and doc updates. An item's commit also checks it off in `TODO.md` and ends its
+   subject with `(TODO: <item>)`. Before each commit, check
+   `git diff --cached --stat` holds exactly that commit's files.
 4. If a check fails, don't commit. Report what failed and what you tried.
 5. A branch is low-risk when every file in `git diff --name-only main...HEAD` is a
    Markdown file outside `.opencode/`, `.agents/` and `.claude/`, a stylesheet, or
@@ -66,6 +71,9 @@ planned work in `TODO.md`. If a project has no `AGENTS.md`, tell me, and suggest
   that is, and how much code the fix needs, then wait until I agree. This
   doesn't apply to code that actually runs concurrently or handles money or
   orders: handle races and failure cases there as part of the work.
+- Before changing what runs on which thread, list each lock and shared structure
+  the new thread touches and every existing caller of each, and get my approval
+  of that design first.
 - Validate data from outside the program (user input, files, network) once,
   where it enters, and pass it inward as typed values. Inside, don't add
   defensive checks or error paths for those values. Cheap asserts on internal
@@ -90,6 +98,14 @@ planned work in `TODO.md`. If a project has no `AGENTS.md`, tell me, and suggest
 - A bug fix includes a test that would have caught the bug.
 - When a change depends on runtime behaviour that tests can't observe, verify it
   the way the project file describes, and say how.
+- For a performance fix, measure the symptom the same way before and after, and
+  report both numbers. If it can only be measured at runtime, give the command
+  and list it as not run.
+- When you change an existing test's expected behaviour, say so and why in the
+  commit message and the handoff.
+- When the full check fails on one test, fix it while rerunning only that test,
+  then run the full check once more. If the test is flaky, say so in the handoff
+  rather than retrying it.
 
 ## Review
 
@@ -136,10 +152,13 @@ when I ask for one:
 
 ## Subagents
 
-- When you delegate implementation, split it by item so each item still gets
-  its own commit, and give each subagent files no other subagent touches. Tell
-  it, in full sentences, its goal, the files it owns, the files it must not
-  touch, and any interface it shares with other work.
+- When you delegate implementation, split it by item, not by layer, so each item
+  still gets its own commit. Give each subagent files no other subagent touches,
+  and don't run subagents in parallel on items that share a module. Before
+  spawning, write down any interface they share (API shapes, types). Tell each
+  subagent, in full sentences, its goal, the files it owns, the files it must not
+  touch, and that interface. After integrating a subagent's work, build before
+  spawning any subagent that depends on it.
 - You own the result: read what a subagent changed before reporting it as done,
   and make the commits yourself.
 
