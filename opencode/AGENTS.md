@@ -166,8 +166,10 @@ when I ask for one:
 
 Every tool result stays in the conversation until compaction, so fetch only what the task needs.
 
-- For questions that span several files, use the `explore` subagent and ask for file paths,
-  line numbers and a short summary.
+- To find code across several files, use the `explore` subagent. Ask it only for facts: file
+  paths, line numbers, callers, and what the code does now. Don't ask it to design, recommend,
+  weigh trade-offs, or decide what needs my approval. Do that yourself from what it reports,
+  reading the ranges that matter.
 - Find code with the `grep` tool, then `read` only the range you need with `offset` and `limit`.
   Read whole files only when they're short.
 - Make independent reads and searches in one step, or use `execute` (Code Mode) when you only
